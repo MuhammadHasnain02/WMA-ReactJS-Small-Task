@@ -1,35 +1,127 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import { useState } from "react";
+// import "./App.css";
+// import Result from "./components/Result";
+
+// function App() {
+//   const students = [
+//     {
+//       name: "Ali",
+//       marks: 30,
+//       status: false,
+//     },
+//     {
+//       name: "Ahmed",
+//       marks: 60,
+//       status: true,
+//     },
+//     {
+//       name: "Raza",
+//       marks: 40,
+//       status: false,
+//     },
+//     {
+//       name: "Zubair",
+//       marks: 80,
+//       status: true,
+//     },
+//   ];
+
+//   const [passedStd, setPassedStd] = useState("ALL");
+
+//   return (
+//     <div>
+//       {/* Buttons */}
+//       <button onClick={() => setPassedStd("PASS")}>PASS</button>
+//       <button onClick={() => setPassedStd("FAIL")}>FAIL</button>
+
+//       {/* All OR Filteres Students */}
+//       {passedStd === "ALL"
+//         // Map All
+//         ? students.map((m, i) => {
+//             return <Result key={i} marks={m.marks} name={m.name} />;
+//           })
+//         // Map PASS
+//         : passedStd === "PASS"
+//         ? students.map((m, i) => {
+//             return m.status ? (
+//               <Result key={i} marks={m.marks} name={m.name} />
+//             ) : (
+//               ""
+//             );
+//           })
+//         // Map FAIL
+//         : students.map((m, i) => {
+//             return m.status ? (
+//               ""
+//             ) : (
+//               <Result key={i} marks={m.marks} name={m.name} />
+//             );
+//           })}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// ==============================================================
+
+import { useState } from "react";
+import "./App.css";
+import Result from "./components/Result";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Students Array Of Object
+  const students = [
+    {
+      name: "Ali",
+      marks: 30,
+      status: false,
+    },
+    {
+      name: "Ahmed",
+      marks: 60,
+      status: true,
+    },
+    {
+      name: "Raza",
+      marks: 40,
+      status: false,
+    },
+    {
+      name: "Zubair",
+      marks: 80,
+      status: true,
+    },
+  ];
+
+  // ALL | PASS | FAIL -> MODES
+  const [ mode, setMode ] = useState("ALL");
+
+  // Filtered Students
+  const filteredStudents = 
+    mode === 'ALL' 
+    ? students 
+    : mode === 'PASS' 
+    ? students.filter((s) => s.status === true) 
+    : students.filter((s) => s.status === false)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+
+      {/* Buttons */}
+      <button onClick={() => setMode("PASS")}>PASS</button>
+      <button onClick={() => setMode("FAIL")}>FAIL</button>
+
+      {/* All OR Filteres Students */}
+      {
+        filteredStudents.map((m, i) => {
+          return <Result key={i} marks={m.marks} name={m.name} />;
+        })
+      }
+
+    </div>
+  );
 }
 
-export default App
+export default App;
